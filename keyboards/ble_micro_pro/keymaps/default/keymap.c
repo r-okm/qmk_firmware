@@ -17,22 +17,23 @@
 #include "bmp.h"
 #include "bmp_custom_keycode.h"
 #include "keycode_str_converter.h"
+#include <sendstring_jis.h> // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    LOWER = BMP_SAFE_RANGE,
-    RAISE,
+    ARROW = SAFE_RANGE,
+    Z_TAB,
+    Z_UP,
+    Z_DOWN,
+    Z_LEFT,
+    Z_RIGHT,
+    LCS_T
 };
 
-const key_string_map_t custom_keys_user =
-{
-    .start_kc = LOWER,
-    .end_kc = RAISE,
-    .key_strings = "LOWER\0RAISE\0"
-};
-
-enum layers {
-    _BASE, _LOWER, _RAISE, _ADJUST
+const key_string_map_t custom_keys_user = {
+    .start_kc = ARROW,
+    .end_kc = LCS_T,
+    .key_strings = "ARROW\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0"
 };
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -42,41 +43,80 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }}
 };
 
-uint32_t keymaps_len() {
-  return 19;
-}
+bool is_lalt_pressed = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool continue_process = process_record_user_bmp(keycode, record);
-  if (continue_process == false)
-  {
-    return false;
-  }
+    bool continue_process = process_record_user_bmp(keycode, record);
+    if (continue_process == false)
+    {
+        return false;
+    }
+    switch (keycode) {
+        case ARROW:
+            if (record->event.pressed) {
+                SEND_STRING("=>");
+            }
+            break;
 
-  switch (keycode) {
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    default:
-      break;
-  }
+        case Z_TAB:
+            if (record->event.pressed) {
+                register_code(KC_LALT);
+                register_code(KC_TAB);
+                is_lalt_pressed = true;
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
 
-  return true;
+        case Z_UP:
+            if (record->event.pressed) {
+                register_code(KC_UP);
+            } else {
+                unregister_code(KC_UP);
+            }
+            break;
+
+        case Z_DOWN:
+            if (record->event.pressed) {
+                register_code(KC_DOWN);
+            } else {
+                unregister_code(KC_DOWN);
+            }
+            break;
+
+        case Z_LEFT:
+            if (record->event.pressed) {
+                register_code(KC_LEFT);
+            } else {
+                unregister_code(KC_LEFT);
+            }
+            break;
+
+        case Z_RIGHT:
+            if (record->event.pressed) {
+                register_code(KC_RIGHT);
+            } else {
+                unregister_code(KC_RIGHT);
+            }
+            break;
+
+        case LCS_T:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                register_code(KC_LSFT);
+                register_code(KC_T);
+            } else {
+                unregister_code(KC_LCTL);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_T);
+            }
+
+        default:
+            if (is_lalt_pressed) {
+                unregister_code(KC_LALT);
+                is_lalt_pressed = false;
+            }
+            break;
+        }
+    return true;
 }
