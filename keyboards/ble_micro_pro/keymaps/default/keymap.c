@@ -21,7 +21,8 @@
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    ARROW = SAFE_RANGE,
+    ARROW_1 = SAFE_RANGE,
+    ARROW_2,
     Z_TAB,
     Z_UP,
     Z_DOWN,
@@ -31,9 +32,9 @@ enum custom_keycodes {
 };
 
 const key_string_map_t custom_keys_user = {
-    .start_kc = ARROW,
+    .start_kc = ARROW_1,
     .end_kc = LCS_T,
-    .key_strings = "ARROW\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0"
+    .key_strings = "ARROW_1\0ARROW_2\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0"
 };
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,7 +53,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-        case ARROW:
+        case ARROW_1:
+            if (record->event.pressed) {
+                SEND_STRING("->");
+            }
+            break;
+
+        case ARROW_2:
             if (record->event.pressed) {
                 SEND_STRING("=>");
             }
