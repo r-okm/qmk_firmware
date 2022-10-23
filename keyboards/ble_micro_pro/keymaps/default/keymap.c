@@ -134,6 +134,8 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
             return true;
         case LT(2,JP_HENK):
             return true;
+        case MO(3):
+            return true;
         default:
             return false;
     }
