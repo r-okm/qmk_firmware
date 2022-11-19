@@ -28,13 +28,19 @@ enum custom_keycodes {
     Z_DOWN,
     Z_LEFT,
     Z_RIGHT,
-    LCS_T
+    LCS_T,
+    X_ONE,
+    X_TWO,
+    X_THREE,
+    X_FOUR,
+    X_FIVE,
+    X_SIX
 };
 
 const key_string_map_t custom_keys_user = {
     .start_kc = ARROW_1,
-    .end_kc = LCS_T,
-    .key_strings = "ARROW_1\0ARROW_2\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0"
+    .end_kc = X_SIX,
+    .key_strings = "ARROW_1\0ARROW_2\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0X_ONE\0X_TWO\0X_THREE\0X_FOUR\0X_FIVE\0X_SIX\0"
 };
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,6 +51,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool is_lalt_pressed = false;
+bool is_lwin_pressed = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool continue_process = process_record_user_bmp(keycode, record);
@@ -107,6 +114,66 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
+        case X_ONE:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_1);
+                is_lwin_pressed = true;
+            } else {
+                unregister_code(KC_1);
+            }
+            break;
+
+        case X_TWO:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_2);
+                is_lwin_pressed = true;
+            } else {
+                unregister_code(KC_2);
+            }
+            break;
+
+        case X_THREE:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_3);
+                is_lwin_pressed = true;
+            } else {
+                unregister_code(KC_3);
+            }
+            break;
+
+        case X_FOUR:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_4);
+                is_lwin_pressed = true;
+            } else {
+                unregister_code(KC_4);
+            }
+            break;
+
+        case X_FIVE:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_5);
+                is_lwin_pressed = true;
+            } else {
+                unregister_code(KC_5);
+            }
+            break;
+
+        case X_SIX:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_6);
+                is_lwin_pressed = true;
+            } else {
+                unregister_code(KC_6);
+            }
+            break;
+
         case LCS_T:
             if (record->event.pressed) {
                 register_code(KC_LCTL);
@@ -122,6 +189,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (is_lalt_pressed) {
                 unregister_code(KC_LALT);
                 is_lalt_pressed = false;
+            }
+            if (is_lwin_pressed) {
+                unregister_code(KC_LWIN);
+                is_lwin_pressed = false;
             }
             break;
         }
