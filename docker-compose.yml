@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+    compile:
+        image: qmkfm/qmk_firmware
+        working_dir: /work
+        volumes:
+            - .:/work
+        entrypoint: ["make"]
+        command: ["ble_micro_pro:r-okm:uf2"]
