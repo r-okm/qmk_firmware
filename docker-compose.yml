@@ -6,5 +6,4 @@ services:
         working_dir: /work
         volumes:
             - .:/work
-        entrypoint: ["make"]
-        command: ["ble_micro_pro:r-okm:uf2"]
+        command: ["/bin/sh", "-c", "make ${KEYBOARD}:${PROFILE}:uf2"]
