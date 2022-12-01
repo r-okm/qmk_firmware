@@ -198,16 +198,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     return true;
 }
-
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LT(1,JP_MHEN):
-            return true;
-        case LT(2,JP_HENK):
-            return true;
-        case MO(3):
-            return true;
-        default:
-            return false;
-    }
-}
