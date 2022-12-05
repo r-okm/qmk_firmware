@@ -185,6 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LSFT);
                 unregister_code(KC_T);
             }
+            break;
 
         case ESC_MHEN:
             if (record->event.pressed) {
@@ -194,6 +195,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_ESC);
                 unregister_code(JP_MHEN);
             }
+            break;
 
         default:
             if (is_lalt_pressed) {
