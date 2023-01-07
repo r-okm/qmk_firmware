@@ -17,7 +17,7 @@
 #include "bmp.h"
 #include "bmp_custom_keycode.h"
 #include "keycode_str_converter.h"
-#include <sendstring_jis.h> // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
+#include <sendstring_jis.h>  // macro sendstring for jis keyboard マクロ文字列送信時に日本語キーボード設定での文字化け回避
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -40,24 +40,21 @@ enum custom_keycodes {
 
 const key_string_map_t custom_keys_user = {
     .start_kc = ARROW_1,
-    .end_kc = ESC_MHEN,
-    .key_strings = "ARROW_1\0ARROW_2\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0X_ONE\0X_TWO\0X_THREE\0X_FOUR\0X_FIVE\0X_SIX\0ESC_MHEN\0"
-};
+    .end_kc   = ESC_MHEN,
+    .key_strings =
+        "ARROW_1\0ARROW_2\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0X_"
+        "ONE\0X_TWO\0X_THREE\0X_FOUR\0X_FIVE\0X_SIX\0ESC_MHEN\0"};
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    {{
-    KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I,
-        KC_J, KC_K, KC_L, KC_M, KC_N, KC_O, KC_P, KC_Q, KC_R, KC_S
-    }}
-};
+    {{KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_J, KC_K, KC_L,
+      KC_M, KC_N, KC_O, KC_P, KC_Q, KC_R, KC_S}}};
 
 bool is_lalt_pressed = false;
 bool is_lwin_pressed = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool continue_process = process_record_user_bmp(keycode, record);
-    if (continue_process == false)
-    {
+    if (continue_process == false) {
         return false;
     }
     switch (keycode) {
@@ -207,6 +204,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 is_lwin_pressed = false;
             }
             break;
-        }
+    }
     return true;
 }
