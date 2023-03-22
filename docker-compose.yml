@@ -8,10 +8,9 @@ services:
       - .:/work
     command: /bin/sh -c "make ble_micro_pro:r-okm:uf2"
 
-  cli:
+  crkbd:
     image: qmkfm/qmk_firmware
     working_dir: /work
-    tty: true
     volumes:
       - .:/work
-    command: /bin/sh -c "qmk config compile.keyboard=crkbd compile.keymap=r-okm && /bin/bash"
+    command: /bin/sh -c "qmk compile -kb crkbd -km r-okm"
