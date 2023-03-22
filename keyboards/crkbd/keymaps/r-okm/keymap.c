@@ -39,6 +39,27 @@ enum custom_keycodes {
     ESC_MHEN
 };
 
+enum combo_events {
+    JK_ESC
+};
+
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+    [JK_ESC] = COMBO_ACTION(jk_combo)
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch(combo_index) {
+        case JK_ESC:
+            if (pressed) {
+                tap_code16(KC_ESC);
+                tap_code16(KC_MHEN);
+            }
+            break;
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -205,16 +226,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LCTL);
                 unregister_code(KC_LSFT);
                 unregister_code(KC_T);
-            }
-            break;
-
-        case ESC_MHEN:
-            if (record->event.pressed) {
-                register_code(KC_ESC);
-                register_code(JP_MHEN);
-            } else {
-                unregister_code(KC_ESC);
-                unregister_code(JP_MHEN);
             }
             break;
 
