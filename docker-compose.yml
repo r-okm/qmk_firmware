@@ -1,9 +1,17 @@
 version: "3.8"
 
 services:
-    compile:
-        image: qmkfm/qmk_firmware
-        working_dir: /work
-        volumes:
-            - .:/work
-        command: ["/bin/sh", "-c", "make ${KEYBOARD}:${PROFILE}:uf2"]
+  bmp:
+    image: qmkfm/qmk_firmware
+    working_dir: /work
+    volumes:
+      - .:/work
+    command: /bin/sh -c "make ble_micro_pro:r-okm:uf2"
+
+  cli:
+    image: qmkfm/qmk_firmware
+    working_dir: /work
+    tty: true
+    volumes:
+      - .:/work
+    command: /bin/sh -c "qmk config compile.keyboard=crkbd compile.keymap=r-okm && /bin/bash"
