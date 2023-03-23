@@ -7,7 +7,7 @@
  13, 14, 15, 16, 17, 18, 42, 41, 40, 39, 38, 37,  0,
  22, 23, 24, 48, 47, 46]},
 "mode":"SPLIT_MASTER","startup":1,
-"peripheral":{"max_interval":20,"min_interval":20,"slave_latency":50},
+"peripheral":{"max_interval":15,"min_interval":15,"slave_latency":50},
 "central":{"max_interval":15,"min_interval":15,"slave_latency":50},
 "led":{"pin":1,"num":12},
 "keymap":{"locale":"JP","use_ascii":0},
