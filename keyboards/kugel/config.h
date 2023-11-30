@@ -44,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define THIS_DEVICE_COLS 16
 #define IS_LEFT_HAND  true
 #define BMP_DEFAULT_MODE SINGLE
+#define COMBO_COUNT 32
 
 #define CONFIG_RESERVED {0, 1, 0, 0, 0, 0, 0, 0}
 

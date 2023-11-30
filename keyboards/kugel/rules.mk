@@ -10,6 +10,7 @@ CUSTOM_MATRIX = yes # This flag should be on for nrf52
 # Build Options
 #   change yes to no to disable
 #
+COMBO_ENABLE = yes
 POINTING_DEVICE_ENABLE = yes
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
