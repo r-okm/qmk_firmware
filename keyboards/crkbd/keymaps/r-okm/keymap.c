@@ -35,30 +35,8 @@ enum custom_keycodes {
     X_THREE,
     X_FOUR,
     X_FIVE,
-    X_SIX,
-    ESC_MHEN
+    X_SIX
 };
-
-enum combo_events {
-    JK_ESC
-};
-
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-    [JK_ESC] = COMBO_ACTION(jk_combo)
-};
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-    switch(combo_index) {
-        case JK_ESC:
-            if (pressed) {
-                tap_code16(KC_ESC);
-                tap_code16(KC_MHEN);
-            }
-            break;
-    }
-}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
