@@ -34,16 +34,15 @@ enum custom_keycodes {
     X_THREE,
     X_FOUR,
     X_FIVE,
-    X_SIX,
-    ESC_MHEN
+    X_SIX
 };
 
 const key_string_map_t custom_keys_user = {
     .start_kc = ARROW_1,
-    .end_kc   = ESC_MHEN,
+    .end_kc   = X_SIX,
     .key_strings =
         "ARROW_1\0ARROW_2\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0X_"
-        "ONE\0X_TWO\0X_THREE\0X_FOUR\0X_FIVE\0X_SIX\0ESC_MHEN\0"};
+        "ONE\0X_TWO\0X_THREE\0X_FOUR\0X_FIVE\0X_SIX\0"};
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_J, KC_K, KC_L,
@@ -181,16 +180,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LCTL);
                 unregister_code(KC_LSFT);
                 unregister_code(KC_T);
-            }
-            break;
-
-        case ESC_MHEN:
-            if (record->event.pressed) {
-                register_code(KC_ESC);
-                register_code(JP_MHEN);
-            } else {
-                unregister_code(KC_ESC);
-                unregister_code(JP_MHEN);
             }
             break;
 
