@@ -19,4 +19,3 @@
 // place overrides here
 #define PERMISSIVE_HOLD
 #define RETRO_TAPPING
-#define COMBO_TERM 400
