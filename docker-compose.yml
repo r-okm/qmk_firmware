@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   bmp:
     image: qmkfm/qmk_firmware
