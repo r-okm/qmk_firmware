@@ -35,7 +35,8 @@ enum custom_keycodes {
     X_THREE,
     X_FOUR,
     X_FIVE,
-    X_SIX
+    X_SIX,
+    ESC_MHEN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -53,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      Z_TAB, KC_F12, LCTL(KC_W), LCTL(KC_PGUP), LCTL(KC_PGDN), LCS_T,           KC_HOME,  KC_ESC,  KC_NO,   KC_END,  KC_NO,   JP_EQL,
+      Z_TAB, KC_F12, LCTL(KC_W), LCTL(KC_PGUP), LCTL(KC_PGDN), LCS_T,           KC_HOME,  ESC_MHEN, KC_NO,   KC_END,  KC_NO,   JP_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL, LCTL(KC_A), LCTL(KC_S), LCTL(KC_D), LCTL(KC_F), LCTL(KC_G),      Z_LEFT,   Z_DOWN,  Z_UP,    Z_RIGHT, JP_SCLN, JP_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -204,6 +205,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LCTL);
                 unregister_code(KC_LSFT);
                 unregister_code(KC_T);
+            }
+            break;
+
+        case ESC_MHEN:
+            if (record->event.pressed) {
+                register_code(KC_ESC);
+                register_code(JP_MHEN);
+            } else {
+                unregister_code(KC_ESC);
+                unregister_code(JP_MHEN);
             }
             break;
 
