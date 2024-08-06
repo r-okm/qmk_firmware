@@ -40,7 +40,7 @@ enum custom_keycodes {
 
 const key_string_map_t custom_keys_user = {
     .start_kc = ARROW_1,
-    .end_kc   = X_SIX,
+    .end_kc   = ESC_MHEN,
     .key_strings =
         "ARROW_1\0ARROW_2\0Z_TAB\0Z_UP\0Z_DOWN\0Z_LEFT\0Z_RIGHT\0LCS_T\0X_"
         "ONE\0X_TWO\0X_THREE\0X_FOUR\0X_FIVE\0X_SIX\0ESC_MHEN\0"};
