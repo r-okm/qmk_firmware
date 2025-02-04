@@ -3,12 +3,16 @@ services:
     image: qmkfm/qmk_firmware
     working_dir: /work
     volumes:
-      - .:/work
-    command: /bin/sh -c "make ble_micro_pro:r-okm:uf2"
+      - type: bind
+        source: .
+        target: /work
+    command: ["make", "ble_micro_pro:r-okm:uf2"]
 
   crkbd:
     image: qmkfm/qmk_firmware
     working_dir: /work
     volumes:
-      - .:/work
-    command: /bin/sh -c "qmk compile -kb crkbd -km r-okm"
+      - type: bind
+        source: .
+        target: /work
+    command: ["qmk", "compile", "-kb", "crkbd", "-km", "r-okm"]

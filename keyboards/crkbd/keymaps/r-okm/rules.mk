@@ -1,3 +1,1 @@
-OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
-COMBO_ENABLE = yes
+DEBOUNCE_TYPE = sym_eager_pr
