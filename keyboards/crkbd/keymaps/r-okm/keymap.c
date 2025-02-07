@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, JP_EXLM, JP_DQUO, JP_HASH, JP_DLR, JP_PERC,                      JP_AMPR, JP_QUOT, JP_LPRN, JP_RPRN, LSFT(JP_YEN), JP_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_MHEN, KC_TRNS, LALT(KC_SPC),  KC_ENT, KC_TRNS, LGUI_T(KC_HENK)
+                                          KC_MHEN, KC_TRNS, KC_SPC,     KC_ENT, KC_TRNS, LGUI_T(KC_HENK)
                                       //`--------------------------'  `--------------------------'
   )
 };
