@@ -1,5 +1,5 @@
 services:
-  bmp:
+  base:
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,18 +11,14 @@ services:
       - type: bind
         source: .
         target: /home/qmk/work
+    command: ["bash"]
+
+  bmp:
+    extends:
+      service: base
     command: ["make", "ble_micro_pro:r-okm:uf2"]
 
   crkbd:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - UID
-        - GID
-    image: r-okm/qmk_firmware:latest
-    volumes:
-      - type: bind
-        source: .
-        target: /home/qmk/work
+    extends:
+      service: base
     command: ["qmk", "compile", "-kb", "crkbd", "-km", "r-okm"]
