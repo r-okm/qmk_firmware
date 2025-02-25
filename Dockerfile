@@ -1,6 +1,10 @@
-FROM qmkfm/qmk_cli
+FROM qmkfm/qmk_firmware:latest
 
-VOLUME /qmk_firmware
-WORKDIR /qmk_firmware
+ARG UID GID
+RUN groupadd -g "$GID" qmk \
+    && useradd -lm -s /bin/bash -u "$UID" -g qmk qmk
 
-CMD qmk compile -kb all -km default
+USER qmk
+WORKDIR /home/qmk/work
+
+CMD ["qmk", "compile", "-kb", "all", "-km", "default"]
