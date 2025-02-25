@@ -1,18 +1,28 @@
 services:
   bmp:
-    image: qmkfm/qmk_firmware
-    working_dir: /work
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - UID
+        - GID
+    image: r-okm/qmk_firmware:latest
     volumes:
       - type: bind
         source: .
-        target: /work
+        target: /home/qmk/work
     command: ["make", "ble_micro_pro:r-okm:uf2"]
 
   crkbd:
-    image: qmkfm/qmk_firmware
-    working_dir: /work
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - UID
+        - GID
+    image: r-okm/qmk_firmware:latest
     volumes:
       - type: bind
         source: .
-        target: /work
+        target: /home/qmk/work
     command: ["qmk", "compile", "-kb", "crkbd", "-km", "r-okm"]
