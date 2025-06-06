@@ -54,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      Z_TAB, KC_F12, LCTL(KC_W), LCTL(KC_PGUP), LCTL(KC_PGDN), LCS_T,           KC_HOME,  ESC_MHEN, KC_NO,   KC_END,  KC_NO,   JP_EQL,
+      Z_TAB, KC_F12, LCTL(KC_W), LCTL(KC_PGUP), LCTL(KC_PGDN), LCS_T,           KC_HOME,  ESC_MHEN, KC_NO,  KC_END,  JP_EQL,  KC_NO,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, LCTL(KC_A), LCTL(KC_S), LCTL(KC_D), LCTL(KC_F), LCTL(KC_G),      Z_LEFT,   Z_DOWN,  Z_UP,    Z_RIGHT, JP_SCLN, JP_MINS,
+      KC_LCTL, LCTL(KC_A), LCTL(KC_S), LCTL(KC_D), LCTL(KC_F), LCTL(KC_G),      Z_LEFT,   Z_DOWN,   Z_UP,   Z_RIGHT, JP_SCLN, JP_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_B),      KC_BSPC,  KC_DEL,  JP_LBRC, JP_RBRC, ARROW_1, LGUI_T(JP_CIRC),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
