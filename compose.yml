@@ -1,17 +1,13 @@
 services:
   base:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - UID
-        - GID
-    image: r-okm/qmk_firmware:latest
+    image: qmkfm/qmk_firmware:${QMK_FIRMWARE_VERSION}
+    user: ${UID}:${GID}
+    working_dir: /qmk_firmware
     volumes:
       - type: bind
         source: .
-        target: /home/qmk/work
-    command: ["bash"]
+        target: /qmk_firmware
+    command: ["qmk", "--version"]
 
   bmp:
     extends:
