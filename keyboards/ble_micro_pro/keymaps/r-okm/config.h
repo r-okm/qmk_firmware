@@ -17,4 +17,4 @@
 #pragma once
 
 // place overrides here
-#define HOLD_ON_OTHER_KEY_PRESS
+#define FLOW_TAP_TERM 150

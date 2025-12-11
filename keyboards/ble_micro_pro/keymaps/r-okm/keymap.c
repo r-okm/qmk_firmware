@@ -49,14 +49,14 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_J, KC_K, KC_L,
       KC_M, KC_N, KC_O, KC_P, KC_Q, KC_R, KC_S}}};
 
-bool is_lalt_pressed = false;
-bool is_lwin_pressed = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool continue_process = process_record_user_bmp(keycode, record);
     if (continue_process == false) {
         return false;
     }
+
+    static bool is_lalt_pressed = false;
+    static bool is_lwin_pressed = false;
     switch (keycode) {
         case ARROW_1:
             if (record->event.pressed) {
