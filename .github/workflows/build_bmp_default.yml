@@ -8,6 +8,10 @@ on:
 
   workflow_dispatch:
 
+env:
+  ARTIFACT_NAME: Firmware
+  TAG_NAME: latest
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,5 +27,35 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: default_firmware_uf2
+          name: ${{ env.ARTIFACT_NAME }}
           path: ./*.uf2
+
+  publish:
+    runs-on: ubuntu-latest
+    if: always() && !cancelled()
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - name: Download binaries
+        if: always() && !cancelled()
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+
+      - name: Delete release
+        run: gh release delete ${{ env.TAG_NAME }} --cleanup-tag || true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Generate Release
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        if: always() && !cancelled()
+        with:
+          token: ${{ github.token }}
+          name: QMK Firmware
+          tag_name: ${{ env.TAG_NAME }}
+          fail_on_unmatched_files: false
+          draft: false
+          prerelease: false
+          files: ./*.uf2
