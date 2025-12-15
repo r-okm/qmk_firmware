@@ -26,7 +26,7 @@ jobs:
       - name: Build ble_micro_pro firmware
         run: make ble_micro_pro:r-okm:uf2
 
-      - uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: default_firmware_uf2
           path: ./*.uf2
