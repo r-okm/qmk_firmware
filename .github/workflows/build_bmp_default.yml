@@ -11,22 +11,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: qmkfm/base_container
+    container: qmkfm/qmk_firmware
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - name: Install dependencies
-        run: python3 -m pip install qmk
-
-      - name: git config
-        run: git config --global --add safe.directory /__w/qmk_firmware/qmk_firmware
-
       - name: Build ble_micro_pro firmware
         run: make ble_micro_pro:r-okm:uf2
 
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+      - name: Upload artifact
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: default_firmware_uf2
           path: ./*.uf2
