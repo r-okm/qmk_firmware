@@ -1,48 +1,61 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Build default firmware for BLE Micro Pro
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the dev/ble_micro_pro branch
   push:
-    branches: [ dev/ble_micro_pro ]
+    branches: [dev/ble_micro_pro]
   pull_request:
-    branches: [ dev/ble_micro_pro ]
+    branches: [dev/ble_micro_pro]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-    
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+env:
+  ARTIFACT_NAME: Firmware
+  TAG_NAME: latest
 
-    container: qmkfm/base_container
-    
-    # Steps represent a sequence of tasks that will be executed as part of the job
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: qmkfm/qmk_firmware
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      
-      - name: Install dependencies
-        run: python3 -m pip install qmk
-      
-      # Runs a single command using the runners shell
-      - name: git config
-        run: git config --global --add safe.directory /__w/qmk_firmware/qmk_firmware
-        
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
       - name: Build ble_micro_pro firmware
-        run: make ble_micro_pro:default:uf2
-        
-      - name: Build keyboard_quantizer_b firmware
-        run: make keyboard_quantizer/kqb:default:uf2
-     
-      - uses: actions/upload-artifact@v2
+        run: make ble_micro_pro:r-okm:uf2
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: default_firmware_uf2
+          name: ${{ env.ARTIFACT_NAME }}
           path: ./*.uf2
-      
+
+  publish:
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'dev/ble_micro_pro' && !cancelled()
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - name: Download binaries
+        if: always() && !cancelled()
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+
+      - name: Delete release
+        run: gh release delete ${{ env.TAG_NAME }} --cleanup-tag || true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Generate Release
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        if: always() && !cancelled()
+        with:
+          token: ${{ github.token }}
+          name: QMK Firmware
+          tag_name: ${{ env.TAG_NAME }}
+          fail_on_unmatched_files: false
+          draft: false
+          prerelease: false
+          files: ./*.uf2
