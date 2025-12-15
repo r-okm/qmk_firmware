@@ -32,7 +32,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    if: always() && !cancelled()
+    if: github.ref_name == 'dev/ble_micro_pro' && !cancelled()
     needs: build
     permissions:
       contents: write
